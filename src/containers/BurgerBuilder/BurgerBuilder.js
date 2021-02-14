@@ -19,6 +19,7 @@ class BurgerBuilder extends Component {
     };
 
     componentDidMount() {
+        // will be fixing this later
         console.log(this.props);
         // axios.get( 'https://burger-builder-c770b.firebaseio.com/ingredients.json' )
         //     .then( response => {
