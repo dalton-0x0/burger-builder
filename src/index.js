@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import thunk from "redux-thunk";
-
+import createSagaMiddleware from "redux-saga";
 
 import "./index.css";
 import App from "./App";
@@ -13,6 +13,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import orderReducer from "./store/reducers/order";
 import authReducer from "./store/reducers/auth";
+import { logoutSaga } from "./store/sagas/auth";
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
@@ -20,10 +21,14 @@ const rootReducer = combineReducers({
     auth: authReducer,
 });
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))
+    composeWithDevTools(applyMiddleware(thunk, sagaMiddleware))
 );
+
+sagaMiddleware.run(logoutSaga);
 
 const app = (
     <Provider store={store}>
