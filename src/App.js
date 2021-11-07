@@ -69,6 +69,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-// export default withRouter(App);
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
